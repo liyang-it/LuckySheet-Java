@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.liyang.luckySheet.mapper.ExcelWorkSheetMapper">
+
+	<resultMap id="baseMap" type="com.liyang.luckySheet.entity.ExcelWorkSheet">
+		<id column="id" property="id"/>
+		<result column="grid_key" property="gridKey"/>
+		<result column="sheet_json" property="sheetJson"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="com.liyang.luckySheet.entity.ExcelWorkSheet" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `t_excel_work_sheet`
+			(`grid_key`, `sheet_json`)
+		VALUES
+			( #{entity.gridKey}, #{entity.sheetJson});
+	</insert>
+	
+	<select id="getDataListByGridKey" resultType="java.lang.String">
+		SELECT
+			sheet_json
+		FROM
+			t_excel_work_sheet
+		WHERE
+			grid_key = #{gridKey}
+	
+	</select>
+	
+	<select id="getListByGridKey" resultMap="baseMap">
+		SELECT
+			id, sheet_json
+		FROM
+			t_excel_work_sheet
+		WHERE
+			grid_key = #{gridKey}
+	
+	</select>
+	
+	<update id="updateSheetById">
+		
+		UPDATE
+			`t_excel_work_sheet`
+		SET
+			`sheet_json` = #{sheet}
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<select id="existByGridKey" resultType="integer" parameterType="java.lang.String">
+		select 1 from t_excel_work_sheet where grid_key = #{gridKey} limit 1
+	</select>
+</mapper>

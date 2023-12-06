@@ -1,0 +1,66 @@
+// import dark theme
+@use "element-plus/theme-chalk/src/dark/css-vars.scss"as *;
+
+// :root {
+//   --ep-color-primary: red;
+// }
+
+body {
+  font-family: Inter, system-ui, Avenir, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+body::-webkit-scrollbar {
+  width: 10px !important;
+  /*滚动条宽度*/
+  height: 10px !important;
+  /*滚动条高度*/
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+body::-webkit-scrollbar-track {
+  box-shadow: 0px 1px 3px #88304e inset !important;
+  /*滚动条的背景区域的内阴影*/
+  // border-radius: 10px !important;
+  /*滚动条的背景区域的圆角*/
+  background-color: #88304e !important;
+  /*滚动条的背景颜色*/
+}
+
+/*定义滑块 内阴影+圆角*/
+body::-webkit-scrollbar-thumb {
+  box-shadow: 0px 1px 3px #522546 inset !important;
+  /*滚动条的内阴影*/
+  // border-radius: 10px !important;
+  /*滚动条的圆角*/
+  background-color: #522546 !important;
+  /*滚动条的背景颜色*/
+}
+
+
+a {
+  color: var(--ep-color-primary);
+}
+
+code {
+  border-radius: 2px;
+  padding: 2px 4px;
+  background-color: var(--ep-color-primary-light-9);
+  color: var(--ep-color-primary);
+}
+
+.tom-menu {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+}
+
+.main-div {
+  height: calc(100vh - 60px);
+  position: absolute;
+  margin-top: 60px;
+  width: 100%;
+}
