@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -31,7 +29,7 @@ public class Application {
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	
-	public static void main( String[] args ) {
+	public static void main(String[] args) {
 		
 		LOGGER.info("=================  服务启动中...  =================");
 		

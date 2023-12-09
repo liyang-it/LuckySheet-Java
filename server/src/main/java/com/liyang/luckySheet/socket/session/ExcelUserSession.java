@@ -1,6 +1,7 @@
 package com.liyang.luckySheet.socket.session;
 
-import javax.websocket.Session;
+import jakarta.websocket.Session;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,19 +36,18 @@ public class ExcelUserSession {
 	private Session session;
 	
 	
-	/**
-	 * 发送消息给当前连接用户
-	 */
-	private void sendMessage(String data){
-		session.getAsyncRemote().sendText(data);
-	}
-	
-	
 	public ExcelUserSession(String uid, String gridKey, Session session) {
 		this.uid = uid;
 		this.session = session;
 		this.gridKey = gridKey;
 		this.dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
+	}
+	
+	/**
+	 * 发送消息给当前连接用户
+	 */
+	private void sendMessage(String data) {
+		session.getAsyncRemote().sendText(data);
 	}
 	
 	public String getGridKey() {

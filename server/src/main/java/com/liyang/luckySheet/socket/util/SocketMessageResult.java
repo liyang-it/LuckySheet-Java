@@ -25,27 +25,27 @@ public class SocketMessageResult {
 	private String msg;
 	private Object data;
 	
-	@Override
-	public String toString() {
-		return JSONObject.toJSONString(this);
-	}
-	
-	public static String joinFail(){
-		return new SocketMessageResult(2500, "连接协议错误或者系统异常，系统断开此次连接", null).toString();
-	}
-	
-	public static String joinSuccess(){
-		return new SocketMessageResult(2501, "连接成功", null).toString();
-	}
-	
-	public static String sendGroupUserList(Object data){
-		return new SocketMessageResult(2502, null, data).toString();
-	}
-	
 	public SocketMessageResult(Integer code, String msg, Object data) {
 		this.code = code;
 		this.msg = msg;
 		this.data = data;
+	}
+	
+	public static String joinFail() {
+		return new SocketMessageResult(2500, "连接协议错误或者系统异常，系统断开此次连接", null).toString();
+	}
+	
+	public static String joinSuccess() {
+		return new SocketMessageResult(2501, "连接成功", null).toString();
+	}
+	
+	public static String sendGroupUserList(Object data) {
+		return new SocketMessageResult(2502, null, data).toString();
+	}
+	
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 	
 	public Integer getCode() {

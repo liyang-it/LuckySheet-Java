@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { ElNotification } from 'element-plus'
+import { ElMessage  } from 'element-plus'
 
 const duration = 2 * 1000
 
@@ -29,7 +29,7 @@ service.interceptors.response.use(
         const data = response.data
 
         if (data.code == 500) {
-            ElNotification({
+            ElMessage ({
                 title: '错误',
                 message: data.msg,
                 type: 'error',
@@ -43,7 +43,7 @@ service.interceptors.response.use(
     },
     // 请求响应（服务端）异常
     error => {
-        ElNotification({
+        ElMessage ({
             title: '错误',
             message: '请求异常',
             type: 'error',

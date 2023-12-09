@@ -2,10 +2,11 @@ package com.liyang.luckySheet.socket.util;
 
 import com.liyang.luckySheet.constant.DefaultGridKeyEmum;
 import com.liyang.luckySheet.socket.session.ExcelUserSession;
+import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
-import javax.websocket.Session;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,18 +23,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ExcelGroupSocketCopyUtil {
 	
 	
-	private static final  Logger LOGGER = LoggerFactory.getLogger(ExcelGroupSocketCopyUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExcelGroupSocketCopyUtil.class);
 	
 	/**
 	 * 在线Excel协同编辑连接组 <br>
-	 *
+	 * <p>
 	 * 键为 Excel表格唯一标识符, 值为 用户连接Map集合
 	 * 用户连接Map：Key(用户ID) - Value({@link ExcelUserSession})
 	 */
-	private static final  ConcurrentHashMap<String, ConcurrentHashMap<String, ExcelUserSession>> EXCEL_SYNERGY_GROUP;
+	private static final ConcurrentHashMap<String, ConcurrentHashMap<String, ExcelUserSession>> EXCEL_SYNERGY_GROUP;
 	
 	
-	static{
+	static {
 		// 系统启动 初始化 空在线Excel协同编辑连接组
 		EXCEL_SYNERGY_GROUP = new ConcurrentHashMap<>(64);
 		
@@ -52,10 +53,10 @@ public class ExcelGroupSocketCopyUtil {
 	 * @param gridKey 表格唯一标识符
 	 * @param session socket连接对象{@link ExcelUserSession}
 	 */
-	public static void joinExcelSynergyGroup(String gridKey, ExcelUserSession session){
-		if(EXCEL_SYNERGY_GROUP.containsKey(gridKey)){
+	public static void joinExcelSynergyGroup(String gridKey, ExcelUserSession session) {
+		if (EXCEL_SYNERGY_GROUP.containsKey(gridKey)) {
 			EXCEL_SYNERGY_GROUP.get(gridKey).put(session.getUid(), session);
-		}else{
+		} else {
 			ConcurrentHashMap<String, ExcelUserSession> hashMap = new ConcurrentHashMap<>();
 			hashMap.put(session.getUid(), session);
 			EXCEL_SYNERGY_GROUP.put(gridKey, hashMap);
@@ -89,7 +90,7 @@ public class ExcelGroupSocketCopyUtil {
 	 * @param session socket连接对象{@link ExcelUserSession}
 	 */
 	public static void disconnectExcelSynergyGroup(String gridKey, ExcelUserSession session) throws IOException {
-		if(EXCEL_SYNERGY_GROUP.containsKey(gridKey)){
+		if (EXCEL_SYNERGY_GROUP.containsKey(gridKey)) {
 			// 断开连接
 			session.getSession().close();
 			
@@ -105,7 +106,7 @@ public class ExcelGroupSocketCopyUtil {
 	 *
 	 * @param session 连接对象{@link Session}
 	 */
-	public static void disconnectExcelSynergyGroup(Session session){
+	public static void disconnectExcelSynergyGroup(Session session) {
 		
 		
 		// 新建一个集合存储当前用户加入的群组名以及用户名
@@ -118,7 +119,7 @@ public class ExcelGroupSocketCopyUtil {
 			// 遍历当前群组的用户集合
 			for (Map.Entry<String, ExcelUserSession> stringSocketSessionEntry : stringConcurrentHashMapEntry.getValue().entrySet()) {
 				
-				if(stringSocketSessionEntry.getValue().getSession().getId().equalsIgnoreCase(session.getId())){
+				if (stringSocketSessionEntry.getValue().getSession().getId().equalsIgnoreCase(session.getId())) {
 					HashMap<String, String> hashMap = new HashMap<>(2);
 					hashMap.put("gridKey", gridKey);
 					hashMap.put("uid", stringSocketSessionEntry.getValue().getUid());
@@ -129,7 +130,7 @@ public class ExcelGroupSocketCopyUtil {
 		}
 		
 		// 移除并且断开
-		gridKeys.forEach(k ->{
+		gridKeys.forEach(k -> {
 			
 			try {
 				String gridKey = k.get("gridKey");
@@ -155,22 +156,22 @@ public class ExcelGroupSocketCopyUtil {
 	 *
 	 * @param session 连接对象{@link Session}
 	 */
-	public static ExcelUserSession findUserBySession(Session session){
+	public static ExcelUserSession findUserBySession(Session session) {
 		// 如果查询到的用户有多个，那么就是用户加入群组的时候没有退出其他群组，所以会有多个，这个时候需要根据加入时间倒序，返回时间最大的那个
 		final LinkedList<ExcelUserSession> groupSessions = new LinkedList<>();
 		
 		// 遍历所有表格群组，查找所有
 		EXCEL_SYNERGY_GROUP.forEach((key, value) -> {
 			// 遍历当前群组，查找
-			value.forEach((k, v) ->{
-				if(v.getSession().getId().equals(session.getId())){
+			value.forEach((k, v) -> {
+				if (v.getSession().getId().equals(session.getId())) {
 					groupSessions.add(v);
 				}
 			});
 		});
 		ExcelUserSession groupSession = null;
 		
-		if(!CollectionUtils.isEmpty(groupSessions)){
+		if (!CollectionUtils.isEmpty(groupSessions)) {
 			groupSessions.sort(new Comparator<ExcelUserSession>() {
 				@Override
 				public int compare(ExcelUserSession o1, ExcelUserSession o2) {
@@ -188,9 +189,9 @@ public class ExcelGroupSocketCopyUtil {
 	 *
 	 * @param gridKey 表格唯一标识符
 	 */
-	public static void sendGroupUserList(String gridKey){
+	public static void sendGroupUserList(String gridKey) {
 		
-		if(EXCEL_SYNERGY_GROUP.containsKey(gridKey) && !EXCEL_SYNERGY_GROUP.get(gridKey).isEmpty()){
+		if (EXCEL_SYNERGY_GROUP.containsKey(gridKey) && !EXCEL_SYNERGY_GROUP.get(gridKey).isEmpty()) {
 			
 			LinkedList<HashMap<String, Object>> list = new LinkedList<>();
 			
@@ -199,7 +200,7 @@ public class ExcelGroupSocketCopyUtil {
 				public int compare(Map.Entry<String, ExcelUserSession> o1, Map.Entry<String, ExcelUserSession> o2) {
 					return o1.getValue().getDateTime().compareTo(o2.getValue().getDateTime());
 				}
-			}).forEach(stringSocketSessionEntry ->{
+			}).forEach(stringSocketSessionEntry -> {
 				HashMap<String, Object> hash = new HashMap<>(2);
 				hash.put("uid", stringSocketSessionEntry.getValue().getUid());
 				hash.put("time", stringSocketSessionEntry.getValue().getDateTime());

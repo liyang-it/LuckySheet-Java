@@ -1,14 +1,12 @@
 package com.liyang.luckySheet.entity;
 
-import java.time.LocalDateTime;
-
 /**
  * <h2>协同Excel - Excel表格 shee工作表数据 ,数据都是用json字符串存储，因为动态字段太多了，一个一个维护很麻烦</h2>
  * <p>
  * 官网参考：<a href="https://mengshukeji.gitee.io/LuckysheetDocs/zh/guide/sheet.html#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE">工作表配置</a><br>
  * 工作表dataJson参考：
  * <pre>{@code
- *	[ // shee工作表数据,一个对象代表一个 sheet表
+ * 	[ // shee工作表数据,一个对象代表一个 sheet表
  *   {
  *       "name": "shee1", //工作表名称
  *       "color": "red", //工作表颜色
@@ -115,7 +113,7 @@ import java.time.LocalDateTime;
  * </pre>
  * </p>
  *
- * @author 作者<1922802352@qq.com>
+ * @author 作者<1 9 2 2 8 0 2 3 5 2 @ qq.com>
  * @since 2023年11月24日 11:36:51
  **/
 public class ExcelWorkSheet {
@@ -135,7 +133,7 @@ public class ExcelWorkSheet {
 	 * 保存sheet工作表数据,使用json字符串存储, 对应Luckysheet.option.data
 	 */
 	private String sheetJson;
-
+	
 	
 	public ExcelWorkSheet() {
 	

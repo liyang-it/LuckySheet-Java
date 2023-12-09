@@ -23,6 +23,16 @@ const LOCAL_EXCEL_DATA = 'localExcel'
 let option = {}
 
 onMounted(async () => {
+})
+
+onActivated(async () => {
+    window.document.title = '本地编辑'
+    // 因为 luckysheet 挂载的是 windows全局变量，所以导致整个组件或者页面用的都是一个实例，每次切换回来当前页面都要重新初始化表格数据
+    await initExcel()
+
+})
+
+async function initExcel() {
     // 判断缓存是否存在数据
     await localforage.getItem(LOCAL_EXCEL_DATA, function (err, value) {
 
@@ -37,19 +47,14 @@ onMounted(async () => {
             localforage.setItem(LOCAL_EXCEL_DATA, JSON.stringify(excelDefaultData))
         } else {
             // 取缓存数据
+            // 
             option = JSON.parse(value)
         }
 
         // 初始化
         luckysheet.create(option)
     });
-
-})
-
-onActivated(() => {
-    window.document.title = '本地编辑'
-})
-
+}
 /**
  * 保存Excel数据
  */
@@ -67,7 +72,7 @@ async function saveExcel() {
     await localforage.setItem(LOCAL_EXCEL_DATA, JSON.stringify(option))
 
     ElMessage({
-        message: 'success',
+        message: '导出成功！',
         type: 'success',
     })
 
@@ -84,27 +89,4 @@ async function exportExcel() {
 </script>
 
 
-<style>
-.main-lucky {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-    margin-top: 30px;
-}
-
-.main-controls {
-    margin-top: 2px;
-    height: 30px;
-    position: absolute;
-    right: 22px;
-    text-align: right;
-    width: 500px;
-    /* 防止文字换行 */
-    white-space: nowrap;
-    /* 超出部分隐藏 */
-    overflow: hidden;
-    /* 显示省略号来表示被截断的文本 */
-    text-overflow: ellipsis;
-}
-</style>
+<style></style>

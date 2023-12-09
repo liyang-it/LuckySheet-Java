@@ -10,15 +10,13 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class ResponseUtil implements Serializable, Cloneable{
-	
-	private static final long serialVersionUID = 1L;
+public class ResponseUtil implements Serializable, Cloneable {
 	
 	/**
 	 * 创建一个源数据，后期 clone 的源数据
 	 */
 	public static final ResponseUtil single = new ResponseUtil();
-	
+	private static final long serialVersionUID = 1L;
 	private int code;
 	
 	private String msg;
@@ -28,7 +26,8 @@ public class ResponseUtil implements Serializable, Cloneable{
 	/**
 	 * 构造函数私有化 不允许new
 	 */
-	private ResponseUtil() {}
+	private ResponseUtil() {
+	}
 	
 	
 	private ResponseUtil(int code, String msg, Object data) {
@@ -37,7 +36,7 @@ public class ResponseUtil implements Serializable, Cloneable{
 		this.msg = msg;
 		this.data = data;
 	}
-
+	
 	/*
 	 * 使用单例模式 获取克隆对象
 	 *
@@ -51,6 +50,35 @@ public class ResponseUtil implements Serializable, Cloneable{
 		}
 	}
 	
+	public static ResponseUtil success() {
+		return getInstance().setCode(ResponseCode.SUCCESS.code()).setMsg(ResponseCode.SUCCESS.message()).setData(null);
+		
+	}
+	
+	public static ResponseUtil success(Object data) {
+		return getInstance().setCode(ResponseCode.SUCCESS.code()).setMsg(ResponseCode.SUCCESS.message()).setData(data);
+	}
+	
+	public static ResponseUtil success(String msg, Object data) {
+		return getInstance().setCode(ResponseCode.SUCCESS.code()).setMsg(msg).setData(data);
+	}
+	
+	public static ResponseUtil fail(String msg) {
+		return getInstance().setCode(ResponseCode.ERROR.code()).setMsg(msg).setData(null);
+	}
+	
+	public static ResponseUtil fail(String msg, Object data) {
+		return getInstance().setCode(ResponseCode.ERROR.code()).setMsg(msg).setData(data);
+	}
+	
+	public static ResponseUtil fail() {
+		return getInstance().setCode(ResponseCode.ERROR.code()).setMsg(ResponseCode.ERROR.message()).setData(null);
+	}
+	
+	public static ResponseUtil build(int code, String msg, Object data) {
+		return getInstance().setCode(code).setMsg(msg).setData(data);
+	}
+	
 	/**
 	 * 重写克隆方法
 	 *
@@ -60,58 +88,5 @@ public class ResponseUtil implements Serializable, Cloneable{
 		return (ResponseUtil) super.clone();
 	}
 	
-
-
-	public static ResponseUtil success() {
-		return getInstance()
-				.setCode(ResponseCode.SUCCESS.code())
-				.setMsg(ResponseCode.SUCCESS.message())
-				.setData(null);
-				
-	}
 	
-	public static ResponseUtil success(Object data) {
-		return getInstance()
-				.setCode(ResponseCode.SUCCESS.code())
-				.setMsg(ResponseCode.SUCCESS.message())
-				.setData(data);
-	}
-	
-	public static ResponseUtil success(String msg, Object data) {
-		return getInstance()
-				.setCode(ResponseCode.SUCCESS.code())
-				.setMsg(msg)
-				.setData(data);
-	}
-	
-	
-	public static ResponseUtil fail(String msg) {
-		return getInstance()
-				.setCode(ResponseCode.ERROR.code())
-				.setMsg(msg)
-				.setData(null);
-	}
-	
-	public static ResponseUtil fail(String msg, Object data) {
-		return getInstance()
-				.setCode(ResponseCode.ERROR.code())
-				.setMsg(msg)
-				.setData(data);
-	}
-	
-	public static ResponseUtil fail() {
-		return getInstance()
-				.setCode(ResponseCode.ERROR.code())
-				.setMsg(ResponseCode.ERROR.message())
-				.setData(null);
-	}
-	
-	public static ResponseUtil build(int code, String msg, Object data) {
-		return getInstance()
-				.setCode(code)
-				.setMsg(msg)
-				.setData(data);
-	}
-	
-
 }

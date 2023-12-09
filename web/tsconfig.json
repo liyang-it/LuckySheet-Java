@@ -14,7 +14,10 @@
     "paths": {
       "~/*": ["src/*"]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "ignoreDiagnostics":[
+      "luckysheet" // 忽略这个变量检查
+    ]
   },
   "vueCompilerOptions": {
     "target": 3

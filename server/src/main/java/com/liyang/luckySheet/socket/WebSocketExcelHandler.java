@@ -8,22 +8,15 @@ import com.liyang.luckySheet.socket.util.ExcelGroupSocketUtil;
 import com.liyang.luckySheet.socket.util.SocketMessageResult;
 import com.liyang.luckySheet.socket.util.luckySheetUtils.Pako_GzipUtils;
 import com.liyang.luckySheet.utils.SpringUtils;
+import jakarta.websocket.*;
+import jakarta.websocket.server.ServerEndpoint;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.server.standard.SpringConfigurator;
 
-import javax.annotation.PostConstruct;
-import javax.websocket.*;
-import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <h2>Excel协同编辑WebSocket组件，处理LuckySheet Socket修改更新操作</h2>
  * <p>
  * <a href="https://docs.spring.io/spring-framework/reference/web/websocket.html">Spring-WebSocket官方文档</a><br>
- *
+ * <p>
  * WebSocket连接地址： 127.0.0.1:12581/luk/ws-excel
  * </p>
  *
@@ -44,17 +37,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@ServerEndpoint(value  = "/ws-excel")
-public class WebSocketExcelHandler{
+@ServerEndpoint(value = "/ws-excel")
+public class WebSocketExcelHandler {
 	
 	public final static Logger LOGGER = LoggerFactory.getLogger(WebSocketExcelHandler.class);
 	
-	public  ExcelWorkSheetService service = SpringUtils.getBean(ExcelWorkSheetService.class);
-	
+	public ExcelWorkSheetService service = SpringUtils.getBean(ExcelWorkSheetService.class);
 	
 	
 	/**
 	 * WebSocket 连接成功调用方法
+	 *
 	 * @param session 连接对象
 	 */
 	@OnOpen
@@ -168,7 +161,7 @@ public class WebSocketExcelHandler{
 						service.updateMultipleCellConfig(gridKey, bson);
 						LOGGER.info("【协同编辑 WebSocket】处理 范围单元格内容变更成功");
 						
-					}else{
+					} else {
 						LOGGER.info("【协同编辑 WebSocket】未实现该指令：{}", bson.getString("t"));
 					}
 				}
@@ -222,5 +215,5 @@ public class WebSocketExcelHandler{
 		LOGGER.error("【协同编辑 WebSocket】异常, Session: {} 原因: ", session.getId(), error);
 	}
 	
-
+	
 }

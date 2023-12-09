@@ -17,19 +17,22 @@ import "uno.css";
 // If you want to use ElMessage, import it.
 import "element-plus/theme-chalk/src/message.scss";
 
+import { ElMessage  } from 'element-plus'
+import axios from "axios";
 
-
-
+console.info('当前运行环境：', import.meta.env)
 
 // 定义路由，没几个页面直接写在这里，也可以独立一个路由文件
 const hello = () => import('./pages/HelloWorld.vue')
 const LocalExcel = () => import('./pages/LocalExcel.vue')
+const ServerExcel = () => import('./pages/ServerExcel.vue')
 const ShareExcel = () => import('./pages/ShareExcel.vue')
 const EchartDemo = () => import('./pages/EchartDemo.vue')
 
 const routes = [
     { path: '/', component: hello, meta: { keepAlive: true } },
     { path: '/local', component: LocalExcel, meta: { keepAlive: true } },
+    { path: '/server', component: ServerExcel, meta: { keepAlive: true } },
     { path: '/share', component: ShareExcel, meta: { keepAlive: true } },
     { path: '/chart', component: EchartDemo, meta: { keepAlive: true } },
 ]
@@ -40,6 +43,23 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
+
+
+// 调用后端测试接口判断后端服务是否启动
+
+// API接口请求地址
+const baseApiUrl = import.meta.env.VITE_APP_BASE_API
+axios({
+    url: `${baseApiUrl}/event`,
+    method: 'GET',
+    timeout: 1500
+}).catch(() => {
+    ElMessage ({
+        message: '后端服务未启动',
+        type: 'error'
+    })
+})
+
 
 
 const app = createApp(App);

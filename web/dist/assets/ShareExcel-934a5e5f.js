@@ -1,1 +1,0 @@
-import{d as e,o as t,a as o,b as n,c as a}from"./index-36ee8d94.js";const c={class:"main-div"},_=e({__name:"ShareExcel",setup(s){return t(()=>{}),o(()=>{window.document.title="共享编辑"}),(d,i)=>(n(),a("div",c," 我是共享编辑Excel "))}});export{_ as default};

@@ -15,23 +15,26 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.2</version>
+		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
 	<properties>
+		<!-- JDK源代码版本指定 -->
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
+		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
 		<!-- 项目依赖版本号统一 -->
-		<mybatis-version>2.2.2</mybatis-version>
+		<mybatis-version>3.0.3</mybatis-version>
 		<fastjson-version>2.0.31</fastjson-version>
 		<mysql-connector-version>8.0.28</mysql-connector-version>
 		<commons-lang3-version>3.12.0</commons-lang3-version>
 		<druid-version>1.2.16</druid-version>
 		<xnio-nio-version>3.8.7.Final</xnio-nio-version>
 		<easyexcel-version>3.3.2</easyexcel-version>
+		<lombok-version>1.18.30</lombok-version>
 	</properties>
 	
 </project>

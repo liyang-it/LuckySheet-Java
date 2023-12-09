@@ -1,7 +1,7 @@
 <template>
   <div class="main-div">
     <p><span>本地编辑</span>不需要启动后端服务，数据存储在浏览器缓存中</p>
-    <p><span>共享编辑</span>需要启动后端服务，数据存储在数据库中</p>
+    <p><span>服务编辑、共享编辑</span>需要启动后端服务，数据存储在数据库中</p>
   </div>
 </template>
 <script setup lang="ts">

@@ -2,6 +2,8 @@ package com.liyang.luckySheet.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <h2>主页控制层</h2>
@@ -16,7 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 	
 	@GetMapping(value = "/")
-	public String index(){
+	public String index() {
 		return "index.html";
+	}
+	
+	@GetMapping(value = "/event")
+	@ResponseBody
+	public String events(){
+		return "ok";
 	}
 }
