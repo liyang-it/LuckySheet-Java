@@ -17,7 +17,7 @@ import "uno.css";
 // If you want to use ElMessage, import it.
 import "element-plus/theme-chalk/src/message.scss";
 
-import { ElMessage  } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import axios from "axios";
 
 console.info('当前运行环境：', import.meta.env)
@@ -28,6 +28,7 @@ const LocalExcel = () => import('./pages/LocalExcel.vue')
 const ServerExcel = () => import('./pages/ServerExcel.vue')
 const ShareExcel = () => import('./pages/ShareExcel.vue')
 const EchartDemo = () => import('./pages/EchartDemo.vue')
+const ScreenDemo = () => import('./pages/ScreenDemo.vue')
 
 const routes = [
     { path: '/', component: hello, meta: { keepAlive: true } },
@@ -35,6 +36,7 @@ const routes = [
     { path: '/server', component: ServerExcel, meta: { keepAlive: true } },
     { path: '/share', component: ShareExcel, meta: { keepAlive: true } },
     { path: '/chart', component: EchartDemo, meta: { keepAlive: true } },
+    { path: '/screen', component: ScreenDemo, hidden: false },
 ]
 // 创建路由实例并传递 `routes` 配置
 
@@ -54,7 +56,7 @@ axios({
     method: 'GET',
     timeout: 1500
 }).catch(() => {
-    ElMessage ({
+    ElMessage({
         message: '后端服务未启动',
         type: 'error'
     })
