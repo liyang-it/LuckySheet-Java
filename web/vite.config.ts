@@ -21,13 +21,13 @@ export default defineConfig({
   base: './',
   resolve: {
     alias: {
-      '~/': `${pathSrc}/`,
+      '@': '/src', // 设置@别名为/src
     },
   },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "~/styles/element/index.scss" as *;`,
+        additionalData: `@use "@/styles/element/index.scss" as *;`,
       },
     },
   },

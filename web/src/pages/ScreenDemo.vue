@@ -85,13 +85,13 @@ onMounted(async () => {
   height: 100vh;
   position: relative;
   font-family: "Microsoft Yahei", Arial, sans-serif;
-  background: rgb(40, 30, 47) url(../../../public/images/kanban-bg.png) 0 0 / 100% 100% no-repeat;
+  background: rgb(40, 30, 47) url('@/assets/images/kanban-bg.png') 0 0 / 100% 100% no-repeat;
 }
 
 .header {
   position: relative;
   height: 72px;
-  background: url(../../../public/images/kanban-header.png) 0 0 / 100% 100% no-repeat;
+  background: url('@/assets/images/kanban-header.png') 0 0 / 100% 100% no-repeat;
   overflow: hidden;
 }
 
@@ -144,7 +144,7 @@ onMounted(async () => {
 .borderAll {
   border: 1px solid rgba(25, 186, 139, .17);
   padding: 0 0.2rem 0.4rem 0.15rem;
-  background: rgba(255, 255, 255, .04) url(../../../public/images/line.png);
+  background: rgba(255, 255, 255, .04) url('@/assets/images/line.png');
   background-size: 100% auto;
   position: relative;
   margin-bottom: 0.15rem;
@@ -167,6 +167,6 @@ onMounted(async () => {
   left: 0;
   right: 0;
   height: 28px;
-  background: url(../../../public/images/kanban-footer.png) 0 0 / 100% 100% no-repeat;
+  background: url('@/assets/images/kanban-footer.png') 0 0 / 100% 100% no-repeat;
 }
 </style>
