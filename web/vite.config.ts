@@ -15,6 +15,8 @@ import {
 } from 'unocss'
 
 const pathSrc = path.resolve(__dirname, 'src')
+const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
+const DRIVE_LETTER_REGEX = /^[a-z]:/i;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,6 +24,23 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src', // 设置@别名为/src
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // TODO: 处理GitHub Pages 部署 _plugin-vue_export-helper.js 404
+        // https://github.com/rollup/rollup/blob/master/src/utils/sanitizeFileName.ts
+        sanitizeFileName(name) {
+          const match = DRIVE_LETTER_REGEX.exec(name);
+          const driveLetter = match ? match[0] : '';
+          // substr 是被淘汰語法，因此要改 slice
+          return (
+            driveLetter +
+            name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, "")
+          );
+        },
+      },
     },
   },
   css: {
